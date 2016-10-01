@@ -1,1 +1,90 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<style>
+
+.prefecture.Hiroshima { fill: #fbb4ae; }
+.prefecture.Okayama { fill: #b3cde3; }
+.prefecture.Shimane { fill: #ccebc5; }
+.prefecture.Tottori { fill: #decbe4; }
+.prefecture.Yamaguchi { fill: #b3cde3; }
+.prefecture.Saga { fill: #decbe4; }
+.prefecture.Fukuoka { fill: #fbb4ae; }
+.prefecture.Kumamoto { fill: #ccebc5; }
+.prefecture.Miyazaki { fill: #b3cde3; }
+.prefecture.Ehime { fill: #decbe4; }
+.prefecture.Kagawa { fill: #fbb4ae; }
+.prefecture.Kochi { fill: #ccebc5; }
+.prefecture.Oita { fill: #decbe4; }
+.prefecture.Tokushima { fill: #b3cde4; }
+.prefecture.Aichi { fill: #fbb4ae; }
+.prefecture.Gifu { fill: #b3cde4; }
+.prefecture.Ishikawa { fill: #fbb4ae; }
+.prefecture.Mie { fill: #decbe4; }
+.prefecture.Nagano { fill: #decbe4; }
+.prefecture.Shizuoka { fill: #ccebc5; }
+.prefecture.Toyama { fill: #ccebc5; }
+.prefecture.Hokkaido { fill: #ccebc5 }
+.prefecture.Fukui { fill: #decbe4; }
+.prefecture.Hyogo { fill: #ccebc5; }
+.prefecture.Kyoto { fill: #fbb4ae; }
+.prefecture.Nara { fill: #b3cde4; }
+.prefecture.Osaka { fill: #decbe4; }
+.prefecture.Shiga { fill: #ccebc5; } /* green */
+.prefecture.Wakayama { fill: #fbb4ae; } /* red */
+.prefecture.Chiba { fill: #b3cde4; } /* blue */
+.prefecture.Ibaraki { fill: #fbb4ae; }
+.prefecture.Saitama { fill: #ccebc5; }
+.prefecture.Kanagawa { fill: #fbb4ae; }
+.prefecture.Tokyo { fill: #decbe4; } /* purple */
+.prefecture.Yamanashi { fill: #b3cde4; }
+.prefecture.Kagoshima { fill: #fbb4ae; }
+.prefecture.Nagasaki { fill: #b3cde4; }
+.prefecture.Okinawa { fill: #decbe4; }
+.prefecture.Tochigi { fill: #decbe4; }
+.prefecture.Gunma { fill: #b3cde4; }
+.prefecture.Niigata { fill: #fbb4ae; }
+.prefecture.Fukushima { fill: #ccebc5; }
+.prefecture.Miyagi { fill: #b3cde4; }
+.prefecture.Yamagata { fill: #decbe4; }
+.prefecture.Iwate { fill: #fbb4ae; }
+.prefecture.Akita { fill: #ccebc5; }
+.prefecture.Aomori { fill: #b3cde4; }
+
+</style>
+</head>
+<body>
+<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="//d3js.org/topojson.v1.min.js"></script>
+<script>
+
+var width = 960;
+var height = 1160;
+
+var colors = ["#fbb4ae, #b3cde3, #ccebc5, #decbe4"];
+
+var projection = d3.geo.mercator()
+    .center([138.3, 39.2])
+    .scale(1500);
+
+var path = d3.geo.path()
+    .projection(projection);
+
+var svg = d3.select("body").append("svg")
+    .attr("height", height)
+    .attr("width", width);
+
+/* draws the map */
+d3.json("japanv2.json", function(error, japan) {
+  svg.selectAll(".prefecture")
+      .data(topojson.feature(japan, japan.objects.prefectures).features)
+    .enter().append("path")
+      .attr("class", function (d) { return "prefecture " + d.id; })
+      .attr("d", path)
+    });
+
+
+</script>
+</body>
+</html>
 
