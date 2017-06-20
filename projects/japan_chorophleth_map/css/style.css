@@ -10,6 +10,11 @@ body {
   -ms-user-select: none;
 }
 
+path {
+  stroke: #6b6b47;
+  stroke-opacity: 0.3;
+}
+
 svg {
   position: absolute;
 }
@@ -20,10 +25,10 @@ svg {
 
 .infolabel {
   position: absolute;
-  width: 200px;
+  width: 220px;
   height: 50px;
   color: #fff;
-  background-color: #000;
+  background-color: #0f1238;
   border: solid thin #fff;
   padding: 5px;
 }
@@ -42,7 +47,7 @@ svg {
 .labelname {
   display: inline-block;
   float: right;
-  margin: -25px 0px -px 40px;
+  margin: -25px px -px 40px;
   font-size: 1em;
   font-weight: bold;
   position: absolute;
