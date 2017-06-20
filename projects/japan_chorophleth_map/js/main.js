@@ -1,7 +1,7 @@
   //begin script when window loads
   window.onload = initialize();
   
-  var keyArray = ["pop_total", "pop_foreign", "crime_violent", "number_police"]; //array of property keys
+  var keyArray = ["Total Population", "Total Foreign Population", "Total Violent Crime", "Total Police Officers", "Population Density (People per Square km) "]; //array of property keys
   var expressed = keyArray[0]; //initial attribute
   
   function initialize(){
@@ -16,10 +16,19 @@
     var height = 700;
     
     //create a new svg element with the above dimensions
-    var map = d3.select("body")
+    var svg = d3.select("body")
+                .append("g")
                 .append("svg")
                 .attr("width", width)
                 .attr("height", height);
+                
+    var map = svg.append("g").call(d3.zoom()
+                    .scaleExtent([1/2, 4])
+                    .on("zoom", zoomed));
+                    
+    function zoomed() {
+      map.attr("transform", d3.event.transform);
+    }
                 
     //create projection centered on Japan
     var projection = d3.geoMercator()
@@ -132,13 +141,13 @@
     var domainArray = [];
     for (var i in csvData) {
       domainArray.push(Number(csvData[i][expressed]));
-    };
+    }
     
     //pass array of expressed values as domain
     color.domain(domainArray);
     
     return color; //return the color scale generator
-  };
+  }
   
   function choropleth(d, recolorMap) {
     
@@ -149,8 +158,8 @@
       return recolorMap(value);
     } else {
       return "#ccc";
-    };
-  };
+    }
+  }
   
   function changeAttribute(attribute, csvData) {
     //change the expressed attribute
@@ -166,17 +175,17 @@
         .text(function(d) {
           return choropleth(d, colorScale(csvData));
         });
-  };
+  }
   
   function highlight(data) {
     
     var props = data.properties; //json properties
     
     d3.select("#"+props.id) //select current prefecture in DOM
-      .style("fill", "#000");
+      .style("fill", "#0f1238");
       
       var labelAttribute = "<h1>"+props[expressed]+
-                              "</h1><br><b>"+expressed+"</b>";
+                              "</h1><br><b>"+expressed+"</b>"+"&nbsp";
       var labelName = props.id;
       
       //create label div
@@ -187,7 +196,7 @@
                         .append("div") //add child div for feature name
                         .attr("class", "labelname") //for styling name
                         .html(labelName);
-  };
+  }
 
   function dehighlight(data) {
     
@@ -197,7 +206,7 @@
     prefecture.style("fill", fillcolor);
     
     d3.select("#"+props.id+"label").remove();
-  };
+  }
   
   function moveLabel() {
     
@@ -206,4 +215,4 @@
     d3.select("infolabel")
       .style("margin-left", x+"px")
       .style("margin-top", y+"px");
-  };
+  }
