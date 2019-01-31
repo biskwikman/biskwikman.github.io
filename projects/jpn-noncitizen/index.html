@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>Non-Citizens in Japan</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+</head>
+<body>
+
+<div id='map'></div>
+
+<div id='upper-left'>
+<div class='map-overlay' id='title'><h2>国籍を持っていない人の比率<br/>Percentage of Non-Citizens in Japanese Municipalities</h2></div>
+
+<div class='map-overlay' id='info'><p>Click on a municipality</p></div>
+</div>
+
+<div class='map-overlay' id='legend'><div id='legend-title'><p>&larr; 0%</p><p>23.3% &rarr;</p></div><canvas id='color-ramp' width='180px' height='30px'></canvas></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiYmlza3dpa21hbiIsImEiOiJjaWxidzVlcGQxcmtxdWJrbjQ2Zng3bWN5In0.KcfLaovMGcEZkl6cyU6_Hw';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/biskwikman/cjpy3k6kv26q22sss774vak27',
+    center: [138, 36],
+    zoom: 4,
+    minZoom: 4
+});
+
+//make legend with canvas
+var canvas = document.getElementById("color-ramp");
+var ctx = canvas.getContext("2d");
+ctx.rect(0, 0, canvas.width, canvas.height);
+var grd = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+grd.addColorStop(0, "#eff3ff");
+grd.addColorStop(1, "#08519c");
+ctx.fillStyle = grd;
+ctx.fill(); 
+
+//add data
+function addMunicipalities(){
+    map.addSource('municipalities', {
+        type: 'geojson',
+        data: './data/japan-merge.geojson'
+    });
+    //Need to change population from string to number!!
+    map.addLayer({
+        'source': 'municipalities',
+        'id': 'zones',
+        'type': 'fill',
+        'paint': {
+          'fill-color': [
+            'interpolate',
+            ['exponential', 0.6],
+            ['get', 'FOREIGN_RATIO'],
+            0, '#eff3ff',
+            23.3, '#08519c']
+          
+        }
+    });
+
+    map.addLayer({
+        "id": "municipality-lines",
+        "type": "line",
+        "source": "municipalities",
+        "paint":{
+            "line-color": "#d0dbed",
+            "line-width": 0.000001
+        }
+    })
+
+    map.addLayer({
+        "id": "municipality-borders",
+        "type": "line",
+        "source": "municipalities",
+        "layout": {},
+        "paint": {
+            "line-color": "black",
+            "line-width": 2
+        },
+        "filter": ["==", "CITY_ENG", ""]
+    });
+}
+
+map.on('load', addMunicipalities);
+
+//add mouseover data display
+map.on('mousemove', function(e) {
+    var munis = map.queryRenderedFeatures(e.point, {
+      layers: ['zones']
+    });
+
+    //logic saying what data to display
+
+    if (munis.length > 0) {
+      document.getElementById('info').innerHTML = '<p>'+ munis[0].properties.KEN + '<br/>' + munis[0].properties.SIKUCHOSON + '<br/><strong>' + munis[0].properties.CITY_ENG + '</strong></p><p><strong>' + (munis[0].properties.FOREIGN_RATIO) + '% </strong>外国籍/non-citizens<p>';
+    } else {
+      document.getElementById('info').innerHTML = '<p>Click on a municipality</p>';
+    }
+});
+
+//fly to clicked feature
+map.on('click', 'zones', function(e) {
+    let bbox = turf.bbox(e.features[0]);
+    map.fitBounds(bbox, {padding: 50});
+});
+
+//hover
+map.on('click', 'zones', function(e) {
+    map.setFilter("municipality-borders", ["==", "CITY_ENG", e.features[0].properties.CITY_ENG]);
+});
+
+// Change the cursor to a pointer when the mouse is over the states layer.
+map.on('mouseenter', 'zones', function () {
+map.getCanvas().style.cursor = 'pointer';
+});
+ 
+// Change it back to a pointer when it leaves.
+map.on('mouseleave', 'zones', function () {
+map.getCanvas().style.cursor = '';
+});
+  
+</script>
+
+<style>
+  
+.mapboxgl-popup {
+max-width: 400px;
+font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+}
+  
+</style>
+
+</body>
+</html>
