@@ -1,0 +1,40 @@
+h2 {
+    margin: 10px;
+    font-size: 1.2em;
+}
+
+h3 {
+    font-size: 1em;
+}
+
+.map-overlay {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.8);
+    margin: 10px;
+    font-family: Arial, sans-serif;
+    overflow: auto;
+    border-radius: 10px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+#title {
+    top: 0px;
+    left: 0px;
+}
+
+#info {
+    top: 80px;
+    padding-left:20px;
+    padding-right:20px;
+}
+
+#legend {
+    bottom: 0px;
+    left: 0px;
+    padding: 20px
+}
+
+#legend-title {
+    display: flex;
+    justify-content: space-between; 
+}
