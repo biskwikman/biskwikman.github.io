@@ -10,11 +10,29 @@
   <sections class="section">
     <div class="container">
       
+<p><a href="https://biskwikman.github.io">Home</a></p>
 <h1 class="title">
   Using NCO to Reduce Dimensions of NetCDF file
 </h1>
 <p class="subtitle"><strong>2024-06-10</strong></p>
-<p>Testing.</p>
+<p>If you do any kind of research that requires earth data, you might be familiar with NetCDF files. 
+The way I like working with these files is using CDO (Climate Data Operators).
+However, I have some data what CDO won't accept, because it has too many dimensions.
+The usual is 4 I guess. That makes room for longitude, latitude, time, and whatever it is you're actually interested in.
+My data has 5 dimensions, it just has an extra &quot;year&quot; dimensions that only has the starting year of the data, so it's actually useless.
+This has me resorting to NCO (NetCDF Operators), which it honestly way over my head.
+I wanted to get back into the warm and safe embrace of CDO as fast as possible, so this is what I did.
+To do this you need to have NCO installed (if you are on arch like me it's a huge pain, I ended up very unhappily using conda).</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">ncks -C -O -x -v</span><span> dimension_to_delete input.nc output.nc 
+</span><span>
+</span><span style="color:#65737e;"># Ok so this actually removed the &quot;variable&quot; not the dimension. I don&#39;t know enought to know the difference
+</span><span style="color:#65737e;"># But I know I had to remove the variable and the dimensions (&quot;year&quot; in my case) for CDO to read it
+</span><span style="color:#65737e;"># So this next bit gets rid of the &quot;dimension&quot;
+</span><span>
+</span><span style="color:#bf616a;">ncwa -a</span><span> dimension_to_delete input.nc output.nc
+</span></code></pre>
+<p>And that's it. That ncwa uses a crazy amount of RAM by the way. So you might need to like, split up the file into smaller parts first.
+Good luck figuring out how to do that with NCO.</p>
 
 
     </div>
