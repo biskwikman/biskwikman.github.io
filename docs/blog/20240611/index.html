@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" style="background-image: url('/starbg.gif'); height: 100vh;">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/style.css">
+  <title>Danno's World</title>
+</head>
+
+<body>
+  <sections class="section">
+    <div class="container">
+      
+<p><a href="https://biskwikman.github.io">Home</a></p>
+<h1 class="title">
+  Installing QGIS on Archlinux
+</h1>
+<p class="subtitle"><strong>2024-06-11</strong></p>
+<p>Why are you using Archlinux if you need to use QGIS? Isn't this some kind of sickness at this point? </p>
+<p>Anyway, there's a nice binary available via pacman, but if you install it you can't use a lot of the tools because of missing Python packages (ugh).
+You can actually install Python packages via pacman on Arch, I don't know if that's a good idea but that's what I did and it worked.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#65737e;"># Install qgis
+</span><span style="color:#bf616a;">pacman -S</span><span> qgis
+</span><span>
+</span><span style="color:#65737e;"># Install required Python packages
+</span><span style="color:#bf616a;">pacman -S</span><span> python-&#39;</span><span style="color:#a3be8c;">gdal</span><span>&#39;
+</span><span style="color:#bf616a;">pacman -S</span><span> python-&#39;</span><span style="color:#a3be8c;">psycopg2</span><span>&#39;
+</span><span style="color:#bf616a;">pacman -S</span><span> python-&#39;</span><span style="color:#a3be8c;">owslib</span><span>&#39;
+</span><span style="color:#bf616a;">pacman -S</span><span> python-&#39;</span><span style="color:#a3be8c;">lxml</span><span>&#39;
+</span></code></pre>
+<p>And that should do it. If not, just look at the Python error logs from qgis. They should tell you what missing package is currently causing the issue.</p>
+
+
+    </div>
+  </section>
+  <div>
+  <img src="/metalhorse.gif">
+  </div>
+</body>
+
+</html>
