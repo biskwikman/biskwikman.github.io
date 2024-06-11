@@ -34,6 +34,10 @@ To do this you need to have NCO installed (if you are on arch like me it's a hug
 </span></code></pre>
 <p>And that's it. That ncwa uses a crazy amount of RAM by the way. So you might need to like, split up the file into smaller parts first.
 Good luck figuring out how to do that with NCO.</p>
+<p>EDIT:
+Quick way to get time slice from nc file:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">ncrcat -F -d</span><span> time,start_index,end_index input.nc output.nc
+</span></code></pre>
 
 
     </div>
