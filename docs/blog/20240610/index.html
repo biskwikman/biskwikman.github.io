@@ -11,11 +11,14 @@
   <sections class="section">
     <div class="container">
       
-<p><a href="https://dannosworld.com">Home</a></p>
+<a href="https://dannosworld.com"><img class="horse-stack" src="/homehorse.gif"></a>
+<div class="container title-content">
 <h1 class="title">
   Using NCO to Reduce Dimensions of NetCDF file
 </h1>
 <p class="subtitle"><strong>2024-06-10</strong></p>
+</div>
+<div class="container post-content">
 <p>If you do any kind of research that requires earth data, you might be familiar with NetCDF files. 
 The way I like working with these files is using CDO (Climate Data Operators).
 However, I have some data what CDO won't accept, because it has too many dimensions.
@@ -39,6 +42,7 @@ Quick way to get time slice from nc file:</p>
 <pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">ncrcat -F -d</span><span> time,start_index,end_index input.nc output.nc
 </span></code></pre>
 
+</div>
 
     <img class="horse-stack" style="transform: scaleX(-1)" src="/flyhorse.gif">
     <img class="horse-stack" src="/metalhorse.gif">

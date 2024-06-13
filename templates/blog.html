@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
+<a href="{{ get_url(path='/')}}"><img class="horse-stack" src="/homehorse.gif"></a>
+<div class="container title-content">
 <h1 class="title">
   {{ section.title }}
 </h1>
@@ -9,4 +11,5 @@
   <li><a href="{{ page.permalink | safe }}">{{ page.title }}</a></li>
   {% endfor %}
 </ul>
+</div>
 {% endblock content %}

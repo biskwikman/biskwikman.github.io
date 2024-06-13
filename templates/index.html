@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="title-content container">
 <h1 class="title">
   Welcome to Danno's World.
 </h1>
-<p style="background-image: url('static/starbg.gif');">Click a link below read some of my writing.</p>
+<p style="background-image: url('static/starbg.gif');">It's Danno's World, you're just living in it!</p>
 <ul>
   <p><a href="{{ get_url(path='@/blog/_index.md') }}">Research and programming</a></p>
 </ul>
+</div>
 {% endblock content %}
