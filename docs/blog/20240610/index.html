@@ -19,11 +19,11 @@
 <p class="subtitle"><strong>2024-06-10</strong></p>
 </div>
 <div class="container post-content">
-<p>If you do any kind of research that requires earth data, you might be familiar with NetCDF files. 
+<p>If you do any kind of research that requires earth data, you might be familiar with NetCDF files.
 The way I like working with these files is using CDO (Climate Data Operators).
 However, I have some data what CDO won't accept, because it has too many dimensions.
 The usual is 4 I guess. That makes room for longitude, latitude, time, and whatever it is you're actually interested in.
-My data has 5 dimensions, it just has an extra &quot;year&quot; dimensions that only has the starting year of the data, so it's actually useless.
+My data has 5 dimensions, it just has an extra "year" dimensions that only has the starting year of the data, so it's actually useless.
 This has me resorting to NCO (NetCDF Operators), which it honestly way over my head.
 I wanted to get back into the warm and safe embrace of CDO as fast as possible, so this is what I did.
 To do this you need to have NCO installed (if you are on arch like me it's a huge pain, I ended up very unhappily using conda).</p>

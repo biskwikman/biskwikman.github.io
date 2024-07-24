@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" style="background-image: url('/starbg.gif'); height: 100vh;">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/style.css">
+  <title>Danno's World</title>
+</head>
+
+<body>
+  <sections class="section">
+    <div class="container">
+      
+<a href="https://dannosworld.com"><img class="horse-stack" src="/homehorse.gif"></a>
+<div class="container title-content">
+<h1 class="title">
+  Getting Started with Latex
+</h1>
+<p class="subtitle"><strong>2024-07-24</strong></p>
+</div>
+<div class="container post-content">
+<p>So I started writing a paper using Latex for the first time, and found it
+pretty difficult to get started with. So here a quick guide on how to
+get up and running with Latex on your local machine.</p>
+<p>First, you need to install something that can work with Latex.
+I'm on Arch Linux, so I just basically installed every texlive package listed
+<a href="https://wiki.archlinux.org/title/TeX_Live">here</a>. Then I downloaded a Latex template for
+the journal I'm hoping to get my paper published in. I assume these are all similar.
+You basically just want to edit the .tex file with Latex syntax. Then you run the command
+<code>pdflatex [myfile].tex</code>, which produces a pdf file of the Latex output.</p>
+<p>So obviously it's obviously really annoying to run this commnand everytime you want to see
+the Latex output, so I made a quick script to run this command anytime the .tex file is edited:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#96b5b4;">echo </span><span style="color:#b48ead;">[</span><span>myfile</span><span style="color:#b48ead;">]</span><span>.tex | </span><span style="color:#bf616a;">entr</span><span> pdflatex </span><span style="color:#b48ead;">[</span><span>myfile</span><span style="color:#b48ead;">]</span><span>.tex
+</span></code></pre>
+<p>You probably need to install the <code>entr</code> package for this. But now you can just open the output
+pdf file with a pdf viewer (I use <a href="https://help.gnome.org/users/evince/stable/">Evince</a>), run
+the script, and the pdf should update in whenever you save. There's an lot of other weird things
+to iron out when using Latex, but I think this is the most annoying one.</p>
+
+</div>
+
+    <img class="horse-stack" style="transform: scaleX(-1)" src="/flyhorse.gif">
+    <img class="horse-stack" src="/metalhorse.gif">
+    <img class="horse-stack" src="/flyhorse.gif">
+    </div>
+  </section>
+</body>
+
+</html>
